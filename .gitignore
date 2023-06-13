@@ -1,0 +1,17 @@
+### Python ###
+__pycache__/
+*.py[cod]
+*.log
+*.pot
+*.pyc
+*.pyo
+*~
+**~lock**
+*.py~*
+**/__pycache__
+**__init__.py
+
+### Django Migrations ###
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py

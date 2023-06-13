@@ -1,0 +1,53 @@
+{% extends 'base/base_login.html' %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+
+{% block content %}
+
+
+   <div class="container">
+      <div class="row">
+
+        <div class="container">
+
+         <div class="section"><i class="mdi-alert-error red-text"></i></div>
+
+         <form class="login-form" novalidate method="post"> {% csrf_token %}
+            <div class="row">
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">mail_outline</i>
+                <input type="text"  name="username" id="username"formnovalidate>
+                <label for="username" data-error="wrong" data-success="right" >Usuario</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">lock_outline</i>
+                <input id="password" type="password" name="password">
+                <label for="password">Password</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <button class="btn waves-effect blue darken-1 col s12">Login</button>
+              </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s6 m6 l6">
+                    <p class="margin medium-small"><a href="{% url 'register' %}">Registrarse</a></p>
+                </div>
+            </div>
+
+          </form>
+
+           </div>
+          </div>
+
+
+   </div>
+{% endblock %}

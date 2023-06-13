@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="{% static 'css/login.css' %}" rel="stylesheet"></head>
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<body>
+
+<nav>
+    <div class="nav-wrapper blue darken-4" >
+        <a href="{% url 'home' %}" class="brand-logo"><b>ACME</b></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/logout/"><b>Cerrar Sessión</b></a></li>
+        </ul>
+    </div>
+</nav>
+
+{% block content %}
+
+{% endblock %}
+
+
+
+<!--<script type="text/javascript" src="{--static 'js/login.js' %}"></script> -->
+{# Form toast #}
+{# Success Toast #}
+    {% include 'partials/toast_success.html' %}
+{% block extra_scripts %}
+{% endblock %}
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
+});
+
+</script>
+</body>
+</html>

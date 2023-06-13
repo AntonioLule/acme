@@ -1,0 +1,106 @@
+{% extends 'base/base_home.html' %}
+
+{% block title %}Home{% endblock %}
+
+
+{% block content %}
+
+    <div class="row">
+
+        <div class="col s6 m6 ">
+          <div class="card blue-grey lighten-5">
+            <div class="card-content">
+
+                <span class="card-title"><b>Store</b></span>
+
+                <form class="login-form" novalidate method="post"> {% csrf_token %}
+
+                    <div class="input-field col s4 m4 l4 xl4">
+                      <select required name="type_op" id="type_op">
+                          {% for operation in type_operation %}  
+                            <option value="{{ operation.1 }}">{{ operation.0 }}</option>            
+                          {% endfor %}
+                      </select>
+                      <label for="type_op">Operación</label>
+                    </div>
+
+                    <div class="input-field col s4 m4 l4 xl4">
+                      <select required name="category" id="category">
+                          {% for cat in category %}  
+                            <option value="{{ cat.1 }}">{{ cat.0 }}</option>            
+                          {% endfor %}
+                      </select>
+                      <label for="category">Categoria</label>
+                    </div>
+
+                    <div class="input-field col s4 m4 l4 xl4">
+                      <input type="text" id="name" name="name" required autocomplete="off">
+                      <label for="name">Nombre</label>
+                    </div>
+
+                    <div class="input-field col s3 m3 l3 xl3 offset-m2 offset-l2 offset-xl2">
+                      <input type="number" name="price" id="price" class="only_number" required autocomplete="off">
+                      <label for="price">Precio</label>
+                    </div>
+
+                    <div class="input-field col s3 m3 l3 xl3">
+                      <input type="number" name="quantity" id="quantity" class="only_number" required autocomplete="off">
+                      <label for="quantity">Cantidad</label>
+                    </div>
+
+
+                    <div class="row">
+                      <div class="input-field col s6 offset-m2 offset-l2 offset-xl2">
+                        <button class="btn waves-effect blue darken-1 col s12">Guardar</button>
+                      </div>
+                    </div>
+                </form>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col s6 m6 l6 xl6">
+
+            <table class="responsive-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                        <th>Categoria</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for item in list_hitmens %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>
+                        {% if item.status.name == 'Active' %}
+                            <span class="badge green">Activo</span>
+                        {% else %}
+                            <span class="badge red">Inactivo</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
+{% block extra_scripts %}
+
+
+
+{% endblock %}

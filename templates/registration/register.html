@@ -1,0 +1,84 @@
+{% extends 'base/base_login.html' %}
+
+{% block title %}Registro{% endblock %}
+
+
+{% block content %}
+
+
+   <div class="container">
+      <div class="row">
+
+        <div class="container">
+
+         <div class="section"><i class="mdi-alert-error red-text"></i></div>
+
+         <form class="login-form" novalidate method="post"> {% csrf_token %}
+            <div class="row">
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">perm_identity</i>
+                  {{ form.username }}
+                  {{ form.username.label_tag }}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">perm_identity</i>
+                  {{ form.first_name }}
+                  {{ form.first_name.label_tag }}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">perm_identity</i>
+                  {{ form.last_name }}
+                  {{ form.last_name.label_tag }}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">mail_outline</i>
+                  {{ form.email }}
+                  {{ form.email.label_tag }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">lock_outline</i>
+                  {{ form.password1 }}
+                  {{ form.password1.label_tag }}
+              </div>
+              <div class="input-field col s12">
+                <i class="material-icons prefix">lock_outline</i>
+                  {{ form.password2 }}
+                  {{ form.password2.label_tag }}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <button class="btn waves-effect blue darken-1 col s12">Registrar</button>
+              </div>
+            </div>
+
+
+             <div class="row">
+                <div class="input-field col s6 m6 l6">
+                    <p class="margin medium-small"><a href="{% url 'login' %}">Login</a></p>
+                </div>
+            </div>
+
+          </form>
+
+           </div>
+          </div>
+
+
+   </div>
+{% endblock %}
