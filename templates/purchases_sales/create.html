@@ -13,7 +13,9 @@
 
                 <span class="card-title"><b>Store</b></span>
 
-                <form class="login-form" novalidate method="post"> {% csrf_token %}
+                    <input type="hidden" id="usr" name="usr" value="{{user_id}}" />
+                    <input type="hidden" id="token" name="token" value="{{token}}" />
+                    
 
                     <div class="input-field col s4 m4 l4 xl4">
                       <select required name="type_op" id="type_op">
@@ -48,13 +50,16 @@
                       <label for="quantity">Cantidad</label>
                     </div>
 
+                    <div class="input-field col s4 m4 l4 xl4">
+                      <input type="text" id="description" name="description" required autocomplete="off">
+                      <label for="description">Descripcion</label>
+                    </div>
 
                     <div class="row">
                       <div class="input-field col s6 offset-m2 offset-l2 offset-xl2">
-                        <button class="btn waves-effect blue darken-1 col s12">Guardar</button>
+                        <button class="btn waves-effect blue darken-1 col s12" name="save" id="save">Guardar</button>
                       </div>
                     </div>
-                </form>
             </div>
 
           </div>
@@ -100,7 +105,72 @@
 
 
 {% block extra_scripts %}
+<script>
+  // Obtener referencias a los elementos del formulario
+  const typeopInput  = document.getElementById('type_op');
+  const descriptionInput = document.getElementById('description');
+  const categoryInput = document.getElementById('category');
+  const nameInput = document.getElementById('name');
+  const priceInput = document.getElementById('price');
+  const quantityInput = document.getElementById('quantity');
+  
+  const usrInput  = document.getElementById('usr');
+  const tokenInput  = document.getElementById('token');
+  const tk = tokenInput.value;
+  
+  // Obtener el botón de guardar
+  const saveButton = document.getElementById('save');
+
+  // Configura el encabezado de autorización en todas las solicitudes Axios
+  axios.defaults.headers.common['Authorization'] = `Token ${tk}`;
+
+  // Agregar un evento click al botón de guardar
+  saveButton.addEventListener('click', () => {
+    // Obtener los valores de los campos de formulario
+    const name = nameInput.value;
+    const description = descriptionInput.value;
+    const price = parseFloat(priceInput.value);
+    const category = categoryInput.value;
+    const type_operation = typeopInput.value;
+    const quantity = parseFloat(quantityInput.value);
+
+    const usr = parseInt(usrInput.value);
+    
+    console.log("lo que envio");
+    console.log(name+" "+description+" "+ price +" "+  category +" "+ type_operation  +" "+ quantity  +" "+ usr)
+    
 
 
+    let data = JSON.stringify({
+      "name": name,
+      "description": description,
+      "price": price,
+      "category": category,
+      "type_operation": type_operation,
+      "quantity": quantity,
+      "store_usr": usr
+    });
 
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: '/api/product/',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios.request(config)
+    .then((response) => {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+
+  });
+
+</script>
 {% endblock %}

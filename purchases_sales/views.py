@@ -5,7 +5,7 @@ from django.views.generic import CreateView
 from django.views import View
 # ----- Django ---- #
 from django.contrib.auth.mixins import LoginRequiredMixin
-#from django.shortcuts import render
+from rest_framework.authtoken.models import Token
 
 from django.contrib import messages
 from django.db.models import Q
@@ -55,9 +55,14 @@ class HomeView(LoginRequiredMixin, View):
 
 
     def get(self, request, *data, **kwargs):
+        user = request.user  # Obtener el usuario logueado
+        token, created = Token.objects.get_or_create(user=user) #token para las apis
 
         context = dict()
         context['category'] = [(category.value, category.name) for category in Category]
         context['type_operation'] = [(type_op.value, type_op.name) for type_op in TypeOperation]
+        context['user_id'] = user.id
+        context['token'] = token
+        
 
         return render(request, self.template_name, context)
