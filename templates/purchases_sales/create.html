@@ -78,23 +78,7 @@
                     </tr>
                 </thead>
 
-                <tbody>
-                {% for item in list_hitmens %}
-                <tr>
-                    <td>{{ item.name }}</td>
-                    <td>
-                        {% if item.status.name == 'Active' %}
-                            <span class="badge green">Activo</span>
-                        {% else %}
-                            <span class="badge red">Inactivo</span>
-                        {% endif %}
-                    </td>
-                    <td>
-                        
-                    </td>
-                </tr>
-                {% endfor %}
-                </tbody>
+                <tbody id="tbody-products"> </tbody>
             </table>
 
         </div>
@@ -136,11 +120,6 @@
 
     const usr = parseInt(usrInput.value);
     
-    console.log("lo que envio");
-    console.log(name+" "+description+" "+ price +" "+  category +" "+ type_operation  +" "+ quantity  +" "+ usr)
-    
-
-
     let data = JSON.stringify({
       "name": name,
       "description": description,
@@ -170,6 +149,33 @@
     });
 
 
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    axios.get('/api/product/')
+    .then(response => {
+      // La respuesta contiene los datos de los productos
+      const products = response.data.results;
+
+      for (let j = 0; j < products.length; j++) {
+
+        let html_tbl = `<tr">
+          <td>${products[j].name}</td>
+          <td>${products[j].description}</td>
+          <td>${products[j].price}</td>
+          <td>${products[j].category}</td>
+          <td class="action-btns right-align">
+              <a href="javascript:void(0);" class="delete-material"title="Eliminar"><i class="fas fa-trash"></i></a>
+              <a href="javascript:void(0);" title="Editar"><i class="fa fa-edit"></i></a>
+            </td>
+          </tr>`;
+
+          document.getElementById('tbody-products').innerHTML += html_tbl;
+        }
+    })
+    .catch(error => {
+      console.error(error);
+    });
   });
 
 </script>
